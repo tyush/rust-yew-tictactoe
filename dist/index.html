@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="en"><head>
+        <title>Hello from Rust!</title> 
+        <style>
+            * {
+                background-color: papayawhip;
+            }
+
+            table {
+                position: absolute;
+                justify-self: center;
+                margin-left:auto; 
+                margin-right:auto;
+                height: 90%;
+                width: 60%;
+                text-align: center;
+                vertical-align: baseline;
+                font-size: 1.5em;
+            }
+
+            button {
+                min-width: 12rem;
+                min-height: 12rem;
+            }
+        </style>
+    
+<link rel="preload" href="/index-a1b3377497352c25_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
+<link rel="modulepreload" href="/index-a1b3377497352c25.js"></head>
+    <body>
+        
+
+    
+<script type="module">import init from '/index-a1b3377497352c25.js';init('/index-a1b3377497352c25_bg.wasm');</script><script>(function () {
+    var url = 'ws://' + window.location.host + '/_trunk/ws';
+    var poll_interval = 5000;
+    var reload_upon_connect = () => {
+        window.setTimeout(
+            () => {
+                // when we successfully reconnect, we'll force a
+                // reload (since we presumably lost connection to
+                // trunk due to it being killed, so it will have
+                // rebuilt on restart)
+                var ws = new WebSocket(url);
+                ws.onopen = () => window.location.reload();
+                ws.onclose = reload_upon_connect;
+            },
+            poll_interval);
+    };
+
+    var ws = new WebSocket(url);
+    ws.onmessage = (ev) => {
+        const msg = JSON.parse(ev.data);
+        if (msg.reload) {
+            window.location.reload();
+        }
+    };
+    ws.onclose = reload_upon_connect;
+})()
+</script></body></html>
